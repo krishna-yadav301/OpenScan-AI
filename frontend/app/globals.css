@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --background: #100c0a;
+  --foreground: #f2eef2;
+  --aragonite: #f2eef2;
+  --royal-silver: #e0dddc;
+  --adirondack: #b0b7c1;
+  --peppered-pecan: #967e71;
+  --bruno-brown: #423630;
+  --stout: #100c0a;
+  --stout-elevated: #1a1512;
+  --stout-card: #241c17;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-aragonite: var(--aragonite);
+  --color-royal-silver: var(--royal-silver);
+  --color-adirondack: var(--adirondack);
+  --color-peppered-pecan: var(--peppered-pecan);
+  --color-bruno-brown: var(--bruno-brown);
+  --color-stout: var(--stout);
+  --color-stout-elevated: var(--stout-elevated);
+  --color-stout-card: var(--stout-card);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #100c0a;
+  color: #f2eef2;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #100c0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #423630;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #967e71;
+}
+
+/* Glassmorphic card styling with palette */
+.glass-panel {
+  background: rgba(36, 28, 23, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(150, 126, 113, 0.2);
+}
+
+.glass-panel-subtle {
+  background: rgba(26, 21, 18, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(66, 54, 48, 0.6);
+}

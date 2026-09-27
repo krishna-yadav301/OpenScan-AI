@@ -18,6 +18,7 @@ class InferenceService:
     """TorchXRayVision inference with Captum Grad-CAM visual explanations."""
 
     def __init__(self) -> None:
+        torch.set_num_threads(1)
         self._models: dict[tuple[str, str, str], tuple[torch.nn.Module, ModelSpec, float]] = {}
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

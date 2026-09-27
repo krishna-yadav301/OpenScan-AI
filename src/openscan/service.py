@@ -30,10 +30,23 @@ class InferenceService:
                 model = xrv.models.DenseNet(weights="densenet121-res224-all")
                 threshold = 0.5
             elif spec.task == "tuberculosis":
-                if not spec.checkpoint or not Path(spec.checkpoint).is_file():
+                candidate_paths = [
+                    Path(spec.checkpoint) if spec.checkpoint else None,
+                    Path("/app") / (spec.checkpoint or "models/tb_xray.pt"),
+                    Path(__file__).resolve().parents[2] / (spec.checkpoint or "models/tb_xray.pt"),
+                    Path.cwd() / (spec.checkpoint or "models/tb_xray.pt"),
+                ]
+                resolved_path = None
+                for p in candidate_paths:
+                    if p and p.is_file():
+                        resolved_path = p
+                        break
+
+                if not resolved_path:
                     raise FileNotFoundError("The tuberculosis checkpoint is unavailable.")
+
                 # The locally trained checkpoint also stores evaluation metadata.
-                checkpoint = torch.load(spec.checkpoint, map_location=self.device, weights_only=False)
+                checkpoint = torch.load(resolved_path, map_location=self.device, weights_only=False)
                 model = xrv.models.DenseNet()
                 model.classifier = torch.nn.Linear(model.classifier.in_features, 1)
                 model.load_state_dict(checkpoint["state_dict"])
